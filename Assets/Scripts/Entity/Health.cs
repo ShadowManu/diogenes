@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Defines a current health/maxHealth structure.
+ */
 [CreateAssetMenu(menuName = "Units/Health")]
 public class Health : ScriptableObject
 {
@@ -10,6 +13,7 @@ public class Health : ScriptableObject
 
     private void OnEnable() 
     {
+        //Initializes current health to its max health
         currHealth = ScriptableObject.CreateInstance<IntVariable>();
         currHealth.setValue(maxHealth);
     }

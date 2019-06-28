@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Scriptable Object that holds an integer value.
+ */
 [CreateAssetMenu(menuName="Utilities/IntVariable")]
 public class IntVariable : ScriptableObject
 {
