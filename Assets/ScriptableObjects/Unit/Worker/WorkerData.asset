@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cd050eb628aea43846161af4d6f7d5, type: 3}
+  m_Name: WorkerData
+  m_EditorClassIdentifier: 
+  entityName: Worker
+  entityTypes: []
+  health: {fileID: 11400000, guid: e4d72249bac6b854a96b2639401748f1, type: 2}
+  resourceCosts:
+  - {fileID: 11400000, guid: ed5e0e5094d90cf449f3194006133651, type: 2}
+  - {fileID: 11400000, guid: adc82b7aca780c8448912045d495aa98, type: 2}
+  lineOfSight: 3
+  damage: 5
+  armor: 3
+  moveSpeed: 3
+  upkeep: 1
