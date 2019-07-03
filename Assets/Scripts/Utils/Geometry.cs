@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Geometry {
+public class Geometry
+{
 
-  public static Mesh FloorQuadMesh(Vector3 start, int size = 1) {
+  public static Mesh FloorQuadMesh(Vector3 start, int size = 1)
+  {
     return Geometry.QuadMesh(
       start,
       start + Vector3.forward * size,
@@ -12,7 +14,8 @@ public class Geometry {
     );
   }
 
-  public static Mesh QuadMesh(Vector3 bottomLeft, Vector3 topLeft, Vector3 topRight, Vector3 bottomRight) {
+  public static Mesh QuadMesh(Vector3 bottomLeft, Vector3 topLeft, Vector3 topRight, Vector3 bottomRight)
+  {
     Vector3[] vertices = { bottomLeft, topLeft, topRight, bottomRight };
 
     int BOTTOM_LEFT = 0;
