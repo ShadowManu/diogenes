@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 /*
     Singleton object that handles a player state
@@ -31,4 +32,12 @@ public class GameManager : MonoBehaviour
         
     }
 
+    /* Takes a point and moves every selected unit to that point */
+    public void moveUnits(Vector3 point) 
+    {
+        if (selectedUnit != null) 
+        {
+                selectedUnit.GetComponent<NavMeshAgent>().SetDestination(point);
+        }
+    }
 }
