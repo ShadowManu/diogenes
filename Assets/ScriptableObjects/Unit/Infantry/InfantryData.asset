@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cd050eb628aea43846161af4d6f7d5, type: 3}
+  m_Name: InfantryData
+  m_EditorClassIdentifier: 
+  entityName: Infantry
+  entityTypes:
+  - {fileID: 11400000, guid: c265d61c30fbfc64ca79da29dbebc056, type: 2}
+  health: {fileID: 11400000, guid: a1f56ff19898f6042bbf9ff501d48360, type: 2}
+  resourceCosts:
+  - {fileID: 11400000, guid: d8f561d305b591d4da5cf0ce3651ced5, type: 2}
+  - {fileID: 11400000, guid: 64a4af0efdb9f2f4e988117637ad116a, type: 2}
+  - {fileID: 11400000, guid: 6731cc0c858e23d498867133fc65c4ac, type: 2}
+  lineOfSight: 3
+  damage: 10
+  armor: 5
+  moveSpeed: 3
+  upkeep: 2
