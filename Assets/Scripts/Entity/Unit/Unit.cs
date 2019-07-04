@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 /*
     Class that defines a GameObject attached to a unit structure.
@@ -9,21 +10,46 @@ using UnityEngine.UI;
 public class Unit : MonoBehaviour
 {
     public UnitEntity unitEntity;
+    public GameObject targettedEntity;
+    private float attackCooldown = 0;
+    public bool isAttacking = false;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        attackCooldown = unitEntity.attackTime;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        reduceAttackTimeTick();
         
+        if (isAttacking) 
+        {
+            float rangeToTarget = Vector3.Distance(gameObject.transform.position, targettedEntity.transform.position);
+            if (rangeToTarget < unitEntity.attackRange)
+            {
+                gameObject.GetComponent<NavMeshAgent>().isStopped = true;
+                if (attackCooldown == 0f) 
+                {
+                    performAttack(targettedEntity.GetComponent<Unit>());
+                }
+            }
+            else 
+            {
+                gameObject.GetComponent<NavMeshAgent>().isStopped = false;
+                moveTo(targettedEntity.transform.position);
+            }
+        }
     }
 
-    public void takeDamage(int damage) 
+    /* Reduces attack time by a fixedTime tick */
+    private void reduceAttackTimeTick() 
     {
-        unitEntity.health.updateHealth(-damage);
+        float dt = Time.fixedDeltaTime;
+        attackCooldown = attackCooldown - dt < 0f ? 0f : attackCooldown - dt;
     }
 
     /* Function that is called when the Unit is clicked */
@@ -37,5 +63,43 @@ public class Unit : MonoBehaviour
             GameManager.instance.selectedUnit = gameObject;
         }
     }
+    
+    /* Moves the unit to a point */
+    public void moveTo(Vector3 point) 
+    {
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(point);
+    }
 
+    /* Sets attacking flags and chases an enemy to attack */
+    public void startAttacking(GameObject entity)
+    {
+        targettedEntity = entity;
+        isAttacking = true;
+    }
+
+    /* Performs an attack against the selected entity */
+    public void performAttack(Unit target)
+    {
+        bool isTargetAlive = target.takeDamage(unitEntity.damage);
+        attackCooldown = unitEntity.attackTime;
+
+        if (!isTargetAlive)
+        {
+            targettedEntity = null;
+            isAttacking = false;
+        }
+    }
+
+    public bool takeDamage(int damage) 
+    {
+        bool isAlive = true;
+        unitEntity.health.updateHealth(-damage);
+        Debug.Log(unitEntity.health);
+        if (unitEntity.health.currHealth == 0f) 
+        {
+            Destroy(gameObject);
+            isAlive = false;
+        }
+        return isAlive;
+    }
 }

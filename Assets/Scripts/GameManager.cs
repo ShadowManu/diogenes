@@ -37,7 +37,22 @@ public class GameManager : MonoBehaviour
     {
         if (selectedUnit != null) 
         {
-                selectedUnit.GetComponent<NavMeshAgent>().SetDestination(point);
+            selectedUnit.GetComponent<Unit>().moveTo(point);
+        }
+    }
+
+    /* Every selected unit performs an action on the entity that was clicked */
+    public void performActionUnits(GameObject entity) 
+    {
+        if (selectedUnit != null) 
+        {
+            //Checks if the entity to perform an action on is a unit
+            if (entity.GetComponent<Unit>() != null)
+            {
+                Unit unit = selectedUnit.GetComponent<Unit>();
+                unit.moveTo(entity.transform.position);
+                unit.startAttacking(entity);
+            }
         }
     }
 }

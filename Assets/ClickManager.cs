@@ -13,7 +13,7 @@ public class ClickManager : MonoBehaviour
     void Update()
     {
         //Handles Unit Selection
-        if  (Input.GetMouseButtonDown(0)) 
+        if  (Input.GetMouseButtonDown(0)) //Left click
         {
             RaycastHit rayHit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 10000f, entityLayer)) 
@@ -24,9 +24,18 @@ public class ClickManager : MonoBehaviour
         }
 
         //Handles Unit movement
-        if (Input.GetMouseButtonDown(1)) 
+        if (Input.GetMouseButtonDown(1)) //Right Click
         {
             RaycastHit rayHit;
+            //Target another entity to make an action
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 10000f, entityLayer)) 
+            {
+                //Targetted a unit. Action will be performed
+                if (rayHit.collider.GetComponent<Unit>() != null )
+                {
+                    GameManager.instance.performActionUnits(rayHit.transform.gameObject);
+                }
+            }
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 10000f, groundLayer)) 
             {
                 if (GameManager.instance != null) 
