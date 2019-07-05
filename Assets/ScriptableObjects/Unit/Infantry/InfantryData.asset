@@ -25,3 +25,5 @@ MonoBehaviour:
   armor: 5
   moveSpeed: 3
   upkeep: 2
+  attackTime: 1
+  attackRange: 1.2

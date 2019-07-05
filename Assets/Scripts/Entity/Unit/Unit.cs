@@ -85,8 +85,13 @@ public class Unit : MonoBehaviour
 
         if (!isTargetAlive)
         {
+            //Disables attack 
             targettedEntity = null;
             isAttacking = false;
+            //Resets movement
+            NavMeshAgent nmAgent = gameObject.GetComponent<NavMeshAgent>();
+            nmAgent.SetDestination(transform.position);
+            nmAgent.isStopped = false;
         }
     }
 
