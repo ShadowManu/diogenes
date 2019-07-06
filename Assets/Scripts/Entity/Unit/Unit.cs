@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,14 +11,14 @@ public class Unit : MonoBehaviour
 {
     public UnitEntity unitEntity;
     public GameObject targettedEntity;
-    private float attackCooldown = 0;
+    private float attackSpeed = 0;
     public bool isAttacking = false;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        attackCooldown = unitEntity.attackTime;
+        attackSpeed = unitEntity.attackTime;
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class Unit : MonoBehaviour
             if (rangeToTarget < unitEntity.attackRange)
             {
                 gameObject.GetComponent<NavMeshAgent>().isStopped = true;
-                if (attackCooldown == 0f) 
+                if (attackSpeed == 0f) 
                 {
                     performAttack(targettedEntity.GetComponent<Unit>());
                 }
@@ -49,7 +49,7 @@ public class Unit : MonoBehaviour
     private void reduceAttackTimeTick() 
     {
         float dt = Time.fixedDeltaTime;
-        attackCooldown = attackCooldown - dt < 0f ? 0f : attackCooldown - dt;
+        attackSpeed = attackSpeed - dt < 0f ? 0f : attackSpeed - dt;
     }
 
     /* Function that is called when the Unit is clicked */
@@ -81,7 +81,7 @@ public class Unit : MonoBehaviour
     public void performAttack(Unit target)
     {
         bool isTargetAlive = target.takeDamage(unitEntity.damage);
-        attackCooldown = unitEntity.attackTime;
+        attackSpeed = unitEntity.attackTime;
 
         if (!isTargetAlive)
         {
