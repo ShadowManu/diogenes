@@ -36,7 +36,7 @@ public class ClickManager : MonoBehaviour
                     GameManager.instance.performActionUnits(rayHit.transform.gameObject);
                 }
             }
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 10000f, groundLayer)) 
+            else if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 10000f, groundLayer)) 
             {
                 if (GameManager.instance != null) 
                 {
