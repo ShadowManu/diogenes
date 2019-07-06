@@ -24,6 +24,12 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        resolveAttackAction();
+    }
+
+
+    private void resolveAttackAction() 
+    {
         reduceAttackTimeTick();
         
         if (isAttacking) 
