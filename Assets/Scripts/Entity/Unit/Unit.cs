@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -103,13 +103,12 @@ public class Unit : MonoBehaviour
 
     public bool takeDamage(int damage) 
     {
-        bool isAlive = true;
-        unitEntity.health.updateHealth(-damage);
+        unitEntity.takeDamage(damage);
         Debug.Log(unitEntity.health);
-        if (unitEntity.health.currHealth == 0f) 
+        bool isAlive = unitEntity.isAlive();
+        if (!isAlive) 
         {
             Destroy(gameObject);
-            isAlive = false;
         }
         return isAlive;
     }
