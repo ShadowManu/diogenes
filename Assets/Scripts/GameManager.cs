@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         if (selectedUnit != null) 
         {
-            selectedUnit.GetComponent<Unit>().moveTo(point);
+            selectedUnit.GetComponent<Unit>().stopAndMoveTo(point);
         }
     }
 

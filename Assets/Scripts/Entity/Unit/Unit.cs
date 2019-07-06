@@ -27,7 +27,10 @@ public class Unit : MonoBehaviour
         resolveAttackAction();
     }
 
-
+    /* The main attack cycle
+     * If a targetted unit is within range, attack it.
+     * Otherwise, chase the unit to get withing range.
+     */
     private void resolveAttackAction() 
     {
         reduceAttackTimeTick();
@@ -49,6 +52,18 @@ public class Unit : MonoBehaviour
                 moveTo(targettedEntity.transform.position);
             }
         }
+    }
+
+    /* Resets attacking and following and attacked unit */
+    private void disableAttackBehavior()
+    {
+        //Disables attack 
+        targettedEntity = null;
+        isAttacking = false;
+        //Resets movement
+        NavMeshAgent nmAgent = gameObject.GetComponent<NavMeshAgent>();
+        nmAgent.isStopped = false;
+        nmAgent.SetDestination(transform.position);
     }
 
     /* Reduces attack time by a fixedTime tick */
@@ -76,6 +91,13 @@ public class Unit : MonoBehaviour
         gameObject.GetComponent<NavMeshAgent>().SetDestination(point);
     }
 
+    /* Stops all action and moves the unit to a point */
+    public void stopAndMoveTo(Vector3 point) 
+    {
+        disableAttackBehavior();
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(point);
+    }
+
     /* Sets attacking flags and chases an enemy to attack */
     public void startAttacking(GameObject entity)
     {
@@ -91,16 +113,11 @@ public class Unit : MonoBehaviour
 
         if (!isTargetAlive)
         {
-            //Disables attack 
-            targettedEntity = null;
-            isAttacking = false;
-            //Resets movement
-            NavMeshAgent nmAgent = gameObject.GetComponent<NavMeshAgent>();
-            nmAgent.SetDestination(transform.position);
-            nmAgent.isStopped = false;
+            disableAttackBehavior();
         }
     }
 
+    /* Take damage from an outside source */
     public bool takeDamage(int damage) 
     {
         unitEntity.takeDamage(damage);
