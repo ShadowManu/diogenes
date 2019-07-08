@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
             if (entity.GetComponent<Unit>() != null)
             {
                 Unit unit = selectedUnit.GetComponent<Unit>();
-                unit.moveTo(entity.transform.position);
                 unit.startAttacking(entity);
             }
         }
