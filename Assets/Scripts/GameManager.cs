@@ -54,4 +54,15 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void destroyEntity(GameObject entity)
+    {
+        Unit su = selectedUnit.GetComponent<Unit>();
+        if (su.targettedEntity == entity)
+        {
+            su.stopAttacking();
+        }
+
+        Destroy(entity);
+    }
 }

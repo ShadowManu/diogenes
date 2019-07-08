@@ -30,6 +30,10 @@ public abstract class Attack : MonoBehaviour
         attackSpeed = attackSpeed - dt < 0f ? 0f : attackSpeed - dt;
     }
 
+    /* The main attack cycle
+     * If a targetted unit is within range, attack it.
+     * Otherwise, chase the unit to get withing range.
+     */
     public void resolveAttackAction(GameObject targettedEntity) 
     {
         float rangeToTarget = Vector3.Distance(gameObject.transform.position, targettedEntity.transform.position);

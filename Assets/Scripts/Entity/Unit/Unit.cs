@@ -31,23 +31,6 @@ public class Unit : MonoBehaviour
         }
     }
 
-    /* The main attack cycle
-     * If a targetted unit is within range, attack it.
-     * Otherwise, chase the unit to get withing range.
-     */
-
-    /* Resets attacking and following and attacked unit */
-    private void stopAttacking()
-    {
-        //Disables attack 
-        targettedEntity = null;
-        isAttacking = false;
-        //Resets movement
-        movementHandler.enableMoving();
-        movementHandler.moveTo(transform.position);
-    }
-
-
     /* Function that is called when the Unit is clicked */
     public void onClick() 
     {
@@ -75,6 +58,18 @@ public class Unit : MonoBehaviour
         isAttacking = true;
     }
 
+    /* Resets attacking and following and attacked unit */
+    public void stopAttacking()
+    {
+        //Disables attack 
+        targettedEntity = null;
+        isAttacking = false;
+        //Resets movement
+        movementHandler.enableMoving();
+        movementHandler.moveTo(transform.position);
+    }
+
+
     /* Performs an attack against the selected entity */
     public void performAttack(Unit target)
     {
@@ -94,16 +89,19 @@ public class Unit : MonoBehaviour
     {
         unitEntity.takeDamage(damage);
         Debug.Log(unitEntity.health);
-        bool isAlive = unitEntity.isAlive();
-        if (!isAlive) 
+        bool alive = isAlive();
+        if (!alive) 
         {
-            Destroy(gameObject);
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.destroyEntity(gameObject);
+            }
         }
-        return isAlive;
+        return alive;
     }
 
     public bool isAlive()
     {
-        return unitEntity.health.currHealth != 0;
+        return unitEntity.isAlive();
     }
 }
