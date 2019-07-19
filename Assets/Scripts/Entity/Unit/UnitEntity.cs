@@ -11,4 +11,6 @@ public class UnitEntity : BuildableEntity
 {
     public int moveSpeed;
     public int upkeep;
+    public float attackTime;
+    public float attackRange;
 }

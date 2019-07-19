@@ -8,19 +8,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Units/Health")]
 public class Health : ScriptableObject
 {
-    public IntVariable maxHealth;
-    public IntVariable currHealth {get; private set;}
+    public int maxHealth;
+    public int currHealth {get; private set;}
 
     private void OnEnable() 
     {
         //Initializes current health to its max health
-        currHealth = ScriptableObject.CreateInstance<IntVariable>();
-        currHealth.setValue(maxHealth);
-    }
-
-    public int getCurrentHealth() 
-    {
-        return currHealth.value;
+        currHealth = maxHealth;
     }
 
     /** 
@@ -28,15 +22,14 @@ public class Health : ScriptableObject
     */
     public void updateHealth(int val) 
     {
-        currHealth.updateValue(val);
-        int cH = currHealth.value;
-        if (cH < 0) 
+        currHealth += val;
+        if (currHealth < 0) 
         {
-            currHealth.setValue(0);
+            currHealth = 0;
         }
-        else if (cH > maxHealth.value) 
+        else if (currHealth > maxHealth) 
         {
-            currHealth.setValue(maxHealth);
+            currHealth = maxHealth;
         }
     }    
 

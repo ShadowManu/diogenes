@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: WorkerData
   m_EditorClassIdentifier: 
   entityName: Worker
-  entityTypes: []
+  entityTypes:
+  - {fileID: 0}
   health: {fileID: 11400000, guid: e4d72249bac6b854a96b2639401748f1, type: 2}
   resourceCosts:
   - {fileID: 11400000, guid: ed5e0e5094d90cf449f3194006133651, type: 2}
@@ -23,3 +24,5 @@ MonoBehaviour:
   armor: 3
   moveSpeed: 3
   upkeep: 1
+  attackTime: 1
+  attackRange: 1
