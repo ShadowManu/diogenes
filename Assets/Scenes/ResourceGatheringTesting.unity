@@ -151,10 +151,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   groundLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1
   resourceLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 612157942}
   - component: {fileID: 612157943}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8e1901e44c1274da3ebeaa1348e2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceType: {fileID: 0}
+  resourceType: {fileID: 11400000, guid: 362d438089cc55a47aecccf2a5113a20, type: 2}
+  resourceEntity: {fileID: 11400000, guid: 24a4e380ed2c6f64badb264048b9485a, type: 2}
 --- !u!1 &679746462
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedUnit: {fileID: 0}
+  workerEntityType: {fileID: 11400000, guid: f12147f044615f3478389b3dd599df44, type: 2}
 --- !u!4 &898071883
 Transform:
   m_ObjectHideFlags: 0
@@ -958,7 +960,7 @@ GameObject:
   - component: {fileID: 1780798044}
   - component: {fileID: 1780798043}
   - component: {fileID: 1780798042}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1049,7 +1051,7 @@ GameObject:
   - component: {fileID: 2024292711}
   - component: {fileID: 2024292710}
   - component: {fileID: 2024292709}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Trunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}

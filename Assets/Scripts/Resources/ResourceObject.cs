@@ -6,7 +6,8 @@ public class ResourceObject : MonoBehaviour
 {
     [SerializeField]
     Resource resourceType;
-    EntityData resourceEntity;
+    [SerializeField]
+    ResourceEntity resourceEntity;
     // Start is called before the first frame update
     void Start()
     {

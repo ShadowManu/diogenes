@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject selectedUnit;
 
+    [SerializeField]
+    private EntityTypeSO workerEntityType;  //Dirty fix for comparing if a unit is a worker
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +49,26 @@ public class GameManager : MonoBehaviour
     {
         if (selectedUnit != null) 
         {
+            Unit unit = selectedUnit.GetComponent<Unit>();
             //Checks if the entity to perform an action on is a unit
             if (entity.GetComponent<Unit>() != null)
             {
-                Unit unit = selectedUnit.GetComponent<Unit>();
                 unit.startAttacking(entity);
+            }
+            //Checks if the entity to perform an action on is a resource
+            if (entity.GetComponentInParent<ResourceObject>() != null)
+            {
+                //Workers harvest resources
+                if (unit.unitEntity.entityTypes.Contains(workerEntityType))
+                {
+                    //Harvest
+                    Debug.Log("HARVEST");
+                }
+                //Other units move there
+                else 
+                {
+                    unit.stopAndMoveTo(entity.transform.position);
+                }
             }
         }
     }
