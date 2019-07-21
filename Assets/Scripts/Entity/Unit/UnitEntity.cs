@@ -6,7 +6,7 @@ using UnityEngine;
     Player created entities that can move, such as workers
     and infantry.
  */
-[CreateAssetMenu(menuName="Units/UnitEntity")]
+[CreateAssetMenu(menuName="Entities/UnitEntity")]
 public class UnitEntity : BuildableEntity
 {
     public int moveSpeed;
