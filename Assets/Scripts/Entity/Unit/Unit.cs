@@ -27,7 +27,14 @@ public class Unit : MonoBehaviour
     {
         if (isAttacking)
         {
-            attackPattern.resolveAttackAction(targettedEntity);
+            if (targettedEntity != null) 
+            {
+                attackPattern.resolveAttackAction(targettedEntity);
+            }
+            else 
+            {
+                stopAttacking();
+            }
         }
     }
 
