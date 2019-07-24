@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
     public Attack attackPattern;
     public Movement movementHandler;
 
+    protected bool performingAction = false;
     protected bool isAttacking = false;
 
     private void Start() 
@@ -49,7 +50,39 @@ public class Unit : MonoBehaviour
             GameManager.instance.selectedUnit = gameObject;
         }
     }
-    
+
+    /* Performs an action based on the given target and the unit's type */
+    public void startPerformingAction(GameObject entity) 
+    {
+        //Attacks another unit
+        if (entity.GetComponent<Unit>() != null)
+        {
+            startAttacking(entity);
+        }
+        //Checks if the entity to perform an action on is a resource
+        if (entity.GetComponentInParent<ResourceObject>() != null)
+        {
+            //If harvesting is posible, do it
+            if (gameObject.GetComponent<Harvest>() != null)
+            {
+                //Harvest
+                Debug.Log("HARVEST");
+            }
+            //Other units move there
+            else 
+            {
+                stopAndMoveTo(entity.transform.position);
+            }
+        }
+    }
+
+    public void stopPerformingAction()
+    {
+        performingAction = false;
+        targettedEntity = null;
+        movementHandler.enableMoving();
+        movementHandler.moveTo(transform.position);
+    }
 
     /* Stops all action and moves the unit to a point */
     public void stopAndMoveTo(Vector3 point) 

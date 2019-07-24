@@ -49,27 +49,7 @@ public class GameManager : MonoBehaviour
     {
         if (selectedUnit != null) 
         {
-            Unit unit = selectedUnit.GetComponent<Unit>();
-            //Checks if the entity to perform an action on is a unit
-            if (entity.GetComponent<Unit>() != null)
-            {
-                unit.startAttacking(entity);
-            }
-            //Checks if the entity to perform an action on is a resource
-            if (entity.GetComponentInParent<ResourceObject>() != null)
-            {
-                //Workers harvest resources
-                if (unit.unitEntity.entityTypes.Contains(workerEntityType))
-                {
-                    //Harvest
-                    Debug.Log("HARVEST");
-                }
-                //Other units move there
-                else 
-                {
-                    unit.stopAndMoveTo(entity.transform.position);
-                }
-            }
+            selectedUnit.GetComponent<Unit>().startPerformingAction(entity);
         }
     }
 
