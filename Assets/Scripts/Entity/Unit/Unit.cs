@@ -11,30 +11,26 @@ public class Unit : MonoBehaviour
 {
     public UnitEntity unitEntity;
     public GameObject targettedEntity;
-    public Attack attackPattern;
+    public List<Action> actionList = new List<Action>();
     public Movement movementHandler;
 
     protected bool performingAction = false;
-    protected bool isAttacking = false;
 
     private void Start() 
     {
-        attackPattern = gameObject.GetComponent<Attack>();
         movementHandler = gameObject.GetComponent<Movement>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isAttacking)
+        if (actionList.Count > 0) 
         {
-            if (targettedEntity != null) 
+            Action currentAction = actionList[0];
+            currentAction.ResolveAction();
+            if (currentAction.IsFinished()) 
             {
-                attackPattern.resolveAttackAction(targettedEntity);
-            }
-            else 
-            {
-                stopAttacking();
+                actionList.RemoveAt(0);
             }
         }
     }
@@ -57,16 +53,26 @@ public class Unit : MonoBehaviour
         //Attacks another unit
         if (entity.GetComponent<Unit>() != null)
         {
-            startAttacking(entity);
+            AttackComponent attack = gameObject.GetComponent<AttackComponent>();
+            if (attack != null)
+            {
+                Debug.Log("ATTACK");
+                actionList.Clear();
+                actionList.Add(attack.InstantiateAttackComponent(gameObject, entity));
+            }
+            //Add a new attack action
+            // startAttacking(entity);
         }
         //Checks if the entity to perform an action on is a resource
         if (entity.GetComponentInParent<ResourceObject>() != null)
         {
+            HarvestComponent harvest = gameObject.GetComponent<HarvestComponent>();
             //If harvesting is posible, do it
-            if (gameObject.GetComponent<Harvest>() != null)
+            if (harvest != null)
             {
                 //Harvest
-                Debug.Log("HARVEST");
+                actionList.Clear();
+                actionList.Add(harvest.InstantiateHarvestAction(gameObject, entity));
             }
             //Other units move there
             else 
@@ -80,6 +86,7 @@ public class Unit : MonoBehaviour
     {
         performingAction = false;
         targettedEntity = null;
+        actionList.Clear();
         movementHandler.enableMoving();
         movementHandler.moveTo(transform.position);
     }
@@ -87,41 +94,10 @@ public class Unit : MonoBehaviour
     /* Stops all action and moves the unit to a point */
     public void stopAndMoveTo(Vector3 point) 
     {
-        stopAttacking();
-        movementHandler.moveTo(point);
-    }
-
-    /* Sets attacking flags and chases an enemy to attack */
-    public void startAttacking(GameObject entity)
-    {
-        targettedEntity = entity;
-        isAttacking = true;
-    }
-
-    /* Resets attacking and following and attacked unit */
-    public void stopAttacking()
-    {
-        //Disables attack 
+        actionList.Clear();
         targettedEntity = null;
-        isAttacking = false;
-        //Resets movement
         movementHandler.enableMoving();
-        movementHandler.moveTo(transform.position);
-    }
-
-
-    /* Performs an attack against the selected entity */
-    public void performAttack(Unit target)
-    {
-        if (attackPattern != null) 
-        {
-            attackPattern.attack(target);
-        }
-
-        if (!target.isAlive())
-        {
-            stopAttacking();
-        }
+        movementHandler.moveTo(point);
     }
 
     /* Take damage from an outside source */

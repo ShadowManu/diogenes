@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         Unit su = selectedUnit.GetComponent<Unit>();
         if (su.targettedEntity == entity)
         {
-            su.stopAttacking();
+            su.stopPerformingAction();
         }
 
         Destroy(entity);
