@@ -3,19 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Attack : MonoBehaviour
+public abstract class Attack : Action
 {
     [SerializeField]
     protected UnitEntity attackerEntity;
     protected float attackSpeed = 0;
-    public abstract void attack(Unit target);
+    public abstract void PerformAttack(Unit target);
 
     public Movement movementHandler;
 
-    private void Start() 
+    public Attack() {}
+
+    public Attack(GameObject character, GameObject targetEntity)
     {
+        this.character = character;
+        this.target = targetEntity;
+        Unit unitComponent = character.GetComponent<Unit>();
+        attackerEntity = unitComponent.unitEntity;
+        movementHandler = unitComponent.movementHandler;
         attackSpeed = attackerEntity.attackTime;
-        movementHandler = gameObject.GetComponent<Movement>();
+    }
+
+    /* The main attack cycle
+     * If a targetted unit is within range, attack it.
+     * Otherwise, chase the unit to get withing range.
+     */
+    public override void ResolveAction() 
+    {
+        reduceAttackTimeTick();
+
+        float rangeToTarget = Vector3.Distance(character.transform.position, target.transform.position);
+        if (rangeToTarget < attackerEntity.attackRange)
+        {
+            movementHandler.disableMoving();
+            if (attackSpeed == 0f)
+            {
+                PerformAttack(target.GetComponent<Unit>());
+            }
+        }
+        else 
+        {
+            movementHandler.enableMoving();
+            movementHandler.moveTo(target.transform.position);
+        }
+    }
+
+    public override bool IsFinished()
+    {
+        return(target == null);
     }
 
     private void FixedUpdate() 
@@ -30,25 +65,4 @@ public abstract class Attack : MonoBehaviour
         attackSpeed = attackSpeed - dt < 0f ? 0f : attackSpeed - dt;
     }
 
-    /* The main attack cycle
-     * If a targetted unit is within range, attack it.
-     * Otherwise, chase the unit to get withing range.
-     */
-    public void resolveAttackAction(GameObject targettedEntity) 
-    {
-        float rangeToTarget = Vector3.Distance(gameObject.transform.position, targettedEntity.transform.position);
-        if (rangeToTarget < attackerEntity.attackRange)
-        {
-            movementHandler.disableMoving();
-            if (attackSpeed == 0f)
-            {
-                attack(targettedEntity.GetComponent<Unit>());
-            }
-        }
-        else 
-        {
-            movementHandler.enableMoving();
-            movementHandler.moveTo(targettedEntity.transform.position);
-        }
-    }
 }
