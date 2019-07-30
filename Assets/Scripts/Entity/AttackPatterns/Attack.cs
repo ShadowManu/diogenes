@@ -50,7 +50,7 @@ public abstract class Attack : Action
 
     public override bool IsFinished()
     {
-        return(target == null);
+        return(!target.GetComponent<Unit>().unitEntity.isAlive());
     }
 
     private void FixedUpdate() 
