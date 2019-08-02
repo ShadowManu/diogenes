@@ -52,15 +52,18 @@ public class Harvest : Action
 
     private void performHarvest()
     {
-        harvestSpeed = unit.attackTime;
-        harvestAmount += target.GetComponent<ResourceObject>().Harvested();
-        harvestComponent.harvestAmount = harvestAmount;
         if (harvestAmount >= maxHarvestCapacity)
         {
-            Debug.Log("HARVEST CAPACITY REACHED");
+            //Move to the town hall and leave stuff
         }
-        //Performs a harvest
-        Debug.Log("harvest amount " + harvestAmount);
+        else 
+        {
+            harvestSpeed = unit.attackTime;
+            harvestAmount += target.GetComponent<ResourceObject>().Harvested();
+            harvestComponent.harvestAmount = harvestAmount;
+            //Performs a harvest
+            Debug.Log("harvest amount " + harvestAmount);
+        }
     }
 
     /* Reduces attack time by a fixedTime tick */
