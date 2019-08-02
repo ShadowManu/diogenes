@@ -6,5 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Entities/ResourceEntity")]
 public class ResourceEntity : EntityData
 {
-
+    public int Harvested() 
+    {
+        int harvestValue = Mathf.Min(health.currHealth, 5);
+        takeDamage(5);
+        return harvestValue;
+    }
 }

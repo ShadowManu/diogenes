@@ -64,7 +64,8 @@ public class Unit : MonoBehaviour
             // startAttacking(entity);
         }
         //Checks if the entity to perform an action on is a resource
-        if (entity.GetComponentInParent<ResourceObject>() != null)
+        ResourceObject resourceObject = entity.GetComponentInParent<ResourceObject>();
+        if (resourceObject != null)
         {
             HarvestComponent harvest = gameObject.GetComponent<HarvestComponent>();
             //If harvesting is posible, do it
@@ -72,7 +73,7 @@ public class Unit : MonoBehaviour
             {
                 //Harvest
                 actionList.Clear();
-                actionList.Add(harvest.InstantiateHarvestAction(gameObject, entity));
+                actionList.Add(harvest.InstantiateHarvestAction(gameObject, resourceObject.gameObject));
             }
             //Other units move there
             else 

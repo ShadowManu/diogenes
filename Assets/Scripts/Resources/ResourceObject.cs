@@ -8,15 +8,14 @@ public class ResourceObject : MonoBehaviour
     Resource resourceType;
     [SerializeField]
     ResourceEntity resourceEntity;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public int Harvested() 
     {
-        
+        int harvestValue = resourceEntity.Harvested();
+        if (!resourceEntity.isAlive())
+        {
+            Destroy(gameObject);
+        }
+        return(harvestValue);
     }
 }

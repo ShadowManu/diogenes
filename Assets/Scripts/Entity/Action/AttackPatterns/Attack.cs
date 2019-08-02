@@ -31,20 +31,22 @@ public abstract class Attack : Action
     public override void ResolveAction() 
     {
         reduceAttackTimeTick();
-
-        float rangeToTarget = Vector3.Distance(character.transform.position, target.transform.position);
-        if (rangeToTarget < attackerEntity.attackRange)
+        if (target != null)
         {
-            movementHandler.disableMoving();
-            if (attackSpeed == 0f)
+            float rangeToTarget = Vector3.Distance(character.transform.position, target.transform.position);
+            if (rangeToTarget < attackerEntity.attackRange)
             {
-                PerformAttack(target.GetComponent<Unit>());
+                movementHandler.disableMoving();
+                if (attackSpeed == 0f)
+                {
+                    PerformAttack(target.GetComponent<Unit>());
+                }
             }
-        }
-        else 
-        {
-            movementHandler.enableMoving();
-            movementHandler.moveTo(target.transform.position);
+            else 
+            {
+                movementHandler.enableMoving();
+                movementHandler.moveTo(target.transform.position);
+            }
         }
     }
 
