@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class ClickManager : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask entityLayer, groundLayer;
+    private LayerMask entityLayer, groundLayer, resourceLayer;
 
 
     // Update is called once per frame
@@ -16,7 +16,8 @@ public class ClickManager : MonoBehaviour
         if  (Input.GetMouseButtonDown(0)) //Left click
         {
             RaycastHit rayHit;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 10000f, entityLayer)) 
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out rayHit, 10000f, entityLayer)) 
             {
                 rayHit.collider.GetComponent<Unit>().onClick();
             }
@@ -27,16 +28,14 @@ public class ClickManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1)) //Right Click
         {
             RaycastHit rayHit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             //Target another entity to make an action
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 10000f, entityLayer)) 
+            if (Physics.Raycast(ray, out rayHit, 10000f, entityLayer)) 
             {
-                //Targetted a unit. Action will be performed
-                if (rayHit.collider.GetComponent<Unit>() != null )
-                {
-                    GameManager.instance.performActionUnits(rayHit.transform.gameObject);
-                }
+                GameManager.instance.performActionUnits(rayHit.transform.gameObject);
             }
-            else if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, 10000f, groundLayer)) 
+            //Target the ground to move
+            else if (Physics.Raycast(ray, out rayHit, 10000f, groundLayer)) 
             {
                 if (GameManager.instance != null) 
                 {

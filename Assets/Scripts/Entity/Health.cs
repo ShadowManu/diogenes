@@ -5,7 +5,7 @@ using UnityEngine;
 /*
     Defines a current health/maxHealth structure.
  */
-[CreateAssetMenu(menuName = "Units/Health")]
+[CreateAssetMenu(menuName = "Entities/Health")]
 public class Health : ScriptableObject
 {
     public int maxHealth;

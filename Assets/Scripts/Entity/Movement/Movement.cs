@@ -20,12 +20,13 @@ public class Movement : MonoBehaviour
         nmAgent.SetDestination(point);
     }
 
+    /* Enables moving via Navmesh */
     public void enableMoving()
     {
         nmAgent.isStopped = false;
     }
 
-
+    /* Disables moving via Navmesh */
     public void disableMoving()
     {
         nmAgent.isStopped = true;

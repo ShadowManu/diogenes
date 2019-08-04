@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class MeleeAttack : Attack
 {
-    public override void attack(Unit target) 
+    public MeleeAttack(GameObject character, GameObject targetEntity) 
+                : base(character, targetEntity)
+    {
+        
+    }
+
+    public override void PerformAttack(Unit target) 
     {
         bool isTargetAlive = target.takeDamage(attackerEntity.damage);
         attackSpeed = attackerEntity.attackTime;

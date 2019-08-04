@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject selectedUnit;
 
+    [SerializeField]
+    private EntityTypeSO workerEntityType;  //Dirty fix for comparing if a unit is a worker
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,12 +49,7 @@ public class GameManager : MonoBehaviour
     {
         if (selectedUnit != null) 
         {
-            //Checks if the entity to perform an action on is a unit
-            if (entity.GetComponent<Unit>() != null)
-            {
-                Unit unit = selectedUnit.GetComponent<Unit>();
-                unit.startAttacking(entity);
-            }
+            selectedUnit.GetComponent<Unit>().startPerformingAction(entity);
         }
     }
 
@@ -60,7 +58,7 @@ public class GameManager : MonoBehaviour
         Unit su = selectedUnit.GetComponent<Unit>();
         if (su.targettedEntity == entity)
         {
-            su.stopAttacking();
+            su.stopPerformingAction();
         }
 
         Destroy(entity);

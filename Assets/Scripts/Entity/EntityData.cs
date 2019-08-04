@@ -5,6 +5,7 @@ using UnityEngine;
 /*
 	Basic entity class from which all other entities derive.
  */
+[CreateAssetMenu(menuName="Entities/Entity")]
 public class EntityData : ScriptableObject
 {
 	public string entityName;

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Worker
   entityTypes:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: f12147f044615f3478389b3dd599df44, type: 2}
   health: {fileID: 11400000, guid: e4d72249bac6b854a96b2639401748f1, type: 2}
   resourceCosts:
   - {fileID: 11400000, guid: ed5e0e5094d90cf449f3194006133651, type: 2}
