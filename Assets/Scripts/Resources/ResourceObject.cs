@@ -18,4 +18,9 @@ public class ResourceObject : MonoBehaviour
         }
         return(harvestValue);
     }
+
+    public Resource getResourceType()
+    {
+        return resourceType;
+    }
 }
